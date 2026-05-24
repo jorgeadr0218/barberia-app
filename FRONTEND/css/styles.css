@@ -1,0 +1,399 @@
+/* =========================
+   TOP INFO
+========================= */
+.desde2020 {
+    background: #ffffff;
+    font-size: 12px;
+}
+
+/* =========================
+   LOGO
+========================= */
+.logo-img {
+    height: 40px; /* unificado (antes estaba duplicado 35px / 40px) */
+}
+
+.logo-text {
+    font-family: 'IM FELL Double Pica SC', sans-serif;
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+    padding-top: 30px;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display';
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.hero img {
+    max-width: 70%;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+/* PROMO */
+.promo h4 {
+    color: #C59D5F;
+    font-family: 'Playfair Display';
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.hero .promo p {
+    font-size: 18px;
+}
+
+/* =========================
+   SERVICIOS
+========================= */
+.titulo-servicios {
+    font-family: 'Playfair Display';
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #C59D5F;
+}
+
+.servicio-card {
+    border: none;
+    border-radius: 12px;
+    background: #111;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.servicio-card p {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.servicio-card:hover {
+    transform: translateY(-8px);
+}
+
+/* =========================
+   OPINIONES
+========================= */
+.opiniones {
+    color: #fff;
+}
+
+.titulo-opiniones {
+    color: #C59D5F;
+    font-family: 'Playfair Display';
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.subtitulo-opiniones {
+    color: #000;
+    margin-top: 10px;
+}
+
+.opinion-card {
+    background: #000;
+    border-radius: 25px;
+    padding: 70px 20px 25px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.opinion-card:hover {
+    transform: translateY(-8px);
+}
+
+.img-container {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.img-redonda {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #000;
+}
+
+.texto {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.nombre {
+    font-size: 14px;
+    color: #ddd;
+}
+
+/* =========================
+   BANNER
+========================= */
+.top-bar {
+    background: #000;
+    padding: 40px 0;
+}
+
+.container-bar {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-text {
+    color: #ccc;
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 500px;
+    margin: 0;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    background: #ffffff;
+    padding: 40px 0;
+}
+
+.footer-container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.footer-col {
+    flex: 1;
+    font-size: 13px;
+    color: #333;
+}
+
+.footer-col h4 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.footer-col p {
+    margin: 0 0 10px;
+    line-height: 1.6;
+}
+
+.footer-bottom {
+    background: #000;
+    color: #aaa;
+    text-align: center;
+    font-size: 12px;
+    padding: 15px 10px;
+}
+
+/* =========================
+   BARBER SECTION
+========================= */
+.barber-section {
+    background: #ffffff;
+    padding: 30px 20px 60px;
+}
+
+.barber-title {
+    font-family: 'Playfair Display';
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.barber-subtitle {
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.barber-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    justify-items: center;
+    align-items: stretch;
+}
+
+/* CARD */
+.barber-card {
+    background: #f6e4b6;
+    border-radius: 12px;
+    width: 260px;
+    padding: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    text-align: left;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.barber-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+}
+
+/* IMÁGENES */
+.barber-img-group {
+    display: flex;
+    gap: 8px;
+}
+
+.barber-img-group img {
+    width: 50%;
+    height: 140px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 10px;
+}
+
+/* TEXTO */
+.barber-card-title {
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.barber-card-desc {
+    font-size: 13px;
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+.barber-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+    margin-top: auto;
+}
+
+.barber-price {
+    font-weight: bold;
+}
+
+.barber-rating {
+    background: #fff;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+/* BOTÓN */
+.barber-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: #5a2d0c;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+     margin-top: auto;
+}
+
+.barber-btn:hover {
+    background: #3e1f08;
+}
+
+/* =========================
+   RESERVA
+========================= */
+.reserva-body {
+    background: #efefef;
+    font-family: 'Poppins', sans-serif;
+}
+
+.reserva-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.reserva-logo {
+    width: 90px;
+    display: block;
+    margin: auto;
+}
+
+.reserva-title {
+    color: red;
+    font-family: 'IM Fell Double Pica SC';
+}
+
+.reserva-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 25px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.reserva-btn:hover {
+    background: red;
+}
+
+
+.form-control {
+    border-radius: 12px;
+    height: 45px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .container-bar,
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .opiniones .row {
+        row-gap: 40px;
+    }
+}
+
+@media (max-width: 900px) {
+    .barber-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .barber-grid {
+        grid-template-columns: 1fr;
+    }
+}

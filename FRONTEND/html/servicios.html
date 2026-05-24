@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+
+    <!-- Hace que la página sea responsive (se adapte a celulares) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>BarberShop</title>
+
+    <!-- Icono que aparece en la pestaña del navegador (Favicon) -->
+    <link rel="icon" type="image/png" href="../assets/imagenes/icono-pestana.png">
+
+    <!-- Bootstrap: librería externa de estilos y componentes -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+     <!-- Google Fonts (tipografía personalizada) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=IM+Fell+Double+Pica+SC&family=Heebo&display=swap" rel="stylesheet">
+
+
+    <!-- CSS: personalizas tu diseño -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    
+    <!-- =========================
+         1. TOP INFO
+    ========================== -->
+
+<!-- DESDE 2020 -->
+<div class="desde2020 py-1">
+    <div class="container">
+        Desde 2020 creando estilo
+    </div>
+</div>
+
+
+    <!-- =========================
+         2. NAVBAR
+    ========================== -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+     <div class="container">
+
+    <a class="navbar-brand d-flex align-items-center" href="../index.html">
+        <img src="../assets/imagenes/logo.png" class="logo-img me-2">
+        <span class="fw-bold logo-text">BarberShop</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="menu">
+        <ul class="navbar-nav align-items-center">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="../index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="servicios.html">Servicios</a>
+            </li>
+            <li class="nav-item  ms-lg-3 mt-2 mt-lg-0">
+                <a class="btn btn-outline-light" href="reservar-cita.html">Reservar cita</a>
+            </li>
+        </ul>
+    </div>
+ </div> 
+
+</nav>
+
+
+    <!-- =========================
+         3. SECCIÓN PRINCIPAL (SERVICIOS)
+    ========================== -->
+
+<section class="barber-section">
+
+    <!-- CONTENEDOR -->
+    <div class="container">
+
+        <!-- TÍTULO -->
+        <div class="row">
+        <div class="col-12 text-start">
+
+    <h2 class="barber-title">Cortes más populares</h2>
+    <p class="barber-subtitle">Descubre los estilos más populares de nuestra barbería.</p>
+
+      </div>
+    </div>
+
+    <!-- GRID DE CARDS -->
+        <div class="barber-grid">
+
+            <!-- CARD -->
+            <div class="barber-card">
+
+                <div class="barber-img-group">
+                <img src="../assets/imagenes/corte1.png">
+                <img src="../assets/imagenes/corte2.png">
+                </div>
+
+                <div class="barber-card-title">El más pedido</div>
+                <div class="barber-card-desc">Fade degradado | Bajo, medio o alto</div>
+
+                <div class="barber-info">
+                    <span class="barber-price">$10000</span>
+                    <span class="barber-rating">⭐ 4.7</span>
+                </div>
+        
+               <a href="reservar-cita.html#formulario" class="barber-btn">
+                    Reservar cita
+                </a>
+            </div>
+
+            
+            <!-- CARD -->
+            <div class="barber-card">
+
+                <div class="barber-img-group">
+                <img src="../assets/imagenes/corte3.png">
+                <img src="../assets/imagenes/corte4.png">
+                </div>
+
+                <div class="barber-card-title">El más pedido</div>
+                <div class="barber-card-desc">taper fade - Mas sutil, solo en patillas y nuca</div>
+
+                <div class="barber-info">
+                    <span class="barber-price">$15000</span>
+                    <span class="barber-rating">⭐ 4.7</span>
+                </div>
+
+                <a href="reservar-cita.html#formulario" class="barber-btn">
+                    Reservar cita
+                </a>
+            </div>
+
+
+            <!-- CARD -->
+            <div class="barber-card">
+
+                 <div class="barber-img-group">
+                <img src="../assets/imagenes/corte5.png">
+                <img src="../assets/imagenes/corte6.png">
+                </div>
+               
+                <div class="barber-card-title">El más pedido</div>
+                <div class="barber-card-desc">Crop (french crop) - Corte con felquillo hacia adelante</div>
+
+                <div class="barber-info">
+                    <span class="barber-price">$15000</span>
+                    <span class="barber-rating">⭐ 4.7</span>
+                </div>
+
+                <a href="reservar-cita.html#formulario" class="barber-btn">
+                    Reservar cita
+                </a>
+            </div>
+
+
+            <!-- CARD -->
+            <div class="barber-card">
+
+                <div class="barber-img-group">
+                <img src="../assets/imagenes/corte7.png">
+                <img src="../assets/imagenes/corte8.png">
+                </div>
+
+                <div class="barber-card-title">El más pedido</div>
+                <div class="barber-card-desc">Undercut - lados muy cortos y arriba largo, sin degradado</div>
+
+                <div class="barber-info">
+                    <span class="barber-price">$15000</span>
+                    <span class="barber-rating">⭐ 4.7</span>
+                </div>
+
+                <a href="reservar-cita.html#formulario" class="barber-btn">
+                    Reservar cita
+                </a>
+            </div>
+
+
+            <!-- CARD -->
+            <div class="barber-card">
+
+                <div class="barber-img-group">
+                <img src="../assets/imagenes/corte9.png">
+                <img src="../assets/imagenes/corte10.png">
+                </div>
+
+                <div class="barber-card-title">El más pedido</div>
+                <div class="barber-card-desc">Pompadour - volumen arriba, estilo clasico elegante</div>
+
+                <div class="barber-info">
+                    <span class="barber-price">$15000</span>
+                    <span class="barber-rating">⭐ 4.7</span>
+                </div>
+
+                <a href="reservar-cita.html#formulario" class="barber-btn">
+                    Reservar cita
+                </a>
+            </div>
+
+
+            <!-- CARD -->
+            <div class="barber-card">
+
+                <div class="barber-img-group">
+                <img src="../assets/imagenes/corte11.png">
+                <img src="../assets/imagenes/corte12.png">
+                </div>
+
+                <div class="barber-card-title">El más pedido</div>
+                <div class="barber-card-desc">Shag en capas - Estilo relajado, medio despeinado</div>
+
+                <div class="barber-info">
+                    <span class="barber-price">$15000</span>
+                    <span class="barber-rating">⭐ 4.7</span>
+                </div>
+
+                <a href="reservar-cita.html#formulario" class="barber-btn">
+                    Reservar cita
+                </a>
+            </div>
+
+
+            <!-- CARD -->
+             <div class="barber-card">
+
+                <div class="barber-img-group">
+                <img src="../assets/imagenes/corte13.png">
+                <img src="../assets/imagenes/corte14.png">
+                </div>
+
+                <div class="barber-card-title">El más pedido</div>
+                <div class="barber-card-desc">Flequillo recto en capas largas - Look elegante pero juvenil</div>
+
+                <div class="barber-info">
+                    <span class="barber-price">$15000</span>
+                    <span class="barber-rating">⭐ 4.7</span>
+                </div>
+
+                <a href="reservar-cita.html#formulario" class="barber-btn">
+                    Reservar cita
+                </a>
+            </div>
+
+
+            <!-- CARD -->
+             <div class="barber-card">
+
+                <div class="barber-img-group">
+                <img src="../assets/imagenes/corte15.png">
+                <img src="../assets/imagenes/corte16.png">
+                </div>
+
+                <div class="barber-card-title">El más pedido</div>
+                <div class="barber-card-desc">Mai tattoo - Totalmente personalizado</div>
+
+                <div class="barber-info">
+                    <span class="barber-price">$15000</span>
+                    <span class="barber-rating">⭐ 4.7</span>
+                </div>
+
+                <a href="reservar-cita.html#formulario" class="barber-btn">
+                    Reservar cita
+                </a>
+            </div>
+
+
+            <!-- CARD -->
+             <div class="barber-card">
+
+                <div class="barber-img-group">
+                <img src="../assets/imagenes/corte17.png">
+                <img src="../assets/imagenes/corte18.png">
+                </div>
+
+                <div class="barber-card-title">El más pedido</div>
+                <div class="barber-card-desc">Barba degradada - Se conecta con el corte</div>
+
+                <div class="barber-info">
+                    <span class="barber-price">$15000</span>
+                    <span class="barber-rating">⭐ 4.7</span>
+                </div>
+
+                <a href="reservar-cita.html#formulario" class="barber-btn">
+                    Reservar cita
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+
+    <!-- =========================
+         4. BANNER / INFO EXTRA
+    ========================== -->
+
+<section class="top-bar">
+  <div class="container-bar">
+
+    <div class="logo">
+      <img src="../assets/imagenes/logo.png" class="logo-img">
+      <span class="logo-text">BarberShop</span>
+    </div>
+
+    <p class="top-text">
+      POR FAVOR, SIÉNTETE LIBRE DE ENVIARNOS UN CORREO ELECTRÓNICO A<br>
+      BARBERSHOP@QODEINTERACTIVE.COM PARA CUALQUIER CONSULTA ADICIONAL
+    </p>
+
+  </div>
+</section>
+
+
+    <!-- =========================
+         5. FOOTER
+    ========================== -->
+
+<section class="footer">
+  <div class="footer-container">
+
+    <div class="footer-col">
+      <h4>QUIENES SOMOS</h4>
+      <p>
+        Somos Una Barbería Enfocada<br>
+        En Estilo, Precisión Y Confianza.<br>
+        Cada Corte Está Diseñado Para<br>
+        Resaltar Tu Mejor Versión.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>HORARIOS DE ATENCION</h4>
+      <p>
+        lunes - Viernes<br>
+        05:30 - 24:00
+      </p>
+      <p>
+        Sábado<br>
+        00:00 - 24:00
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>UBICACION</h4>
+      <p>
+        68 Jasy Street, Bogota,<br>
+        NY 11201, Colombia
+      </p>
+      <p>
+        Barbershop@qodeinteractive.com<br>
+        + (57) 3209419316
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>RESERVA TU CITA AHORA ↗</h4>
+      <p>
+        WhatsApp<br>
+        TikTok &nbsp;&nbsp; Youtube &nbsp;&nbsp; Instagram<br>
+        Facebook &nbsp;&nbsp; Twitter
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- =========================
+         6. COPYRIGHT
+    ========================== -->
+
+<div class="footer-bottom">
+  © 2026 Tu Barbería - Todos los derechos reservados, Diseñado para quienes valoran el estilo
+</div>
+
+
+    <!-- =========================
+         SCRIPTS
+    ========================== --
+
+<!-- Scripts de Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

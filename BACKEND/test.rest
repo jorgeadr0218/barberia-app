@@ -1,0 +1,153 @@
+# ====================
+# CLIENTES
+# ====================
+
+### Obtener clientes
+GET http://localhost:3000/api/clientes
+
+
+### Agregar cliente
+POST http://localhost:3000/api/clientes
+Content-Type: application/json
+
+{
+    "nombre": "Prueba1",
+    "telefono": "3133416546"
+}
+
+
+### Actualizar cliente
+PUT http://localhost:3000/api/clientes/6
+Content-Type: application/json
+
+{
+    "nombre": "Prueba2",
+    "telefono": "3132733934"
+}
+
+### Eliminar cliente
+DELETE http://localhost:3000/api/clientes/6
+
+
+# ====================
+# Empleados
+# ====================
+
+### Obtener empleados
+GET http://localhost:3000/api/empleados
+
+
+### Agregar empleados
+POST http://localhost:3000/api/empleados
+Content-Type: application/json
+
+{
+    "nombre": "Empleado1"
+}
+
+
+### Actualizar empleado
+PUT http://localhost:3000/api/empleados/6
+Content-Type: application/json
+
+{
+    "nombre": "Empleado2"
+}
+
+### Eliminar empleado
+DELETE http://localhost:3000/api/empleados/6
+
+
+# ====================
+# Servicios
+# ====================
+
+### Obtener servcios
+GET http://localhost:3000/api/servicios
+
+
+### Agregar servicios
+POST http://localhost:3000/api/servicios
+Content-Type: application/json
+
+{
+    "nombre": "Corte1"
+}
+
+
+### Actualizar servicio
+PUT http://localhost:3000/api/servicios/4
+Content-Type: application/json
+
+{
+    "nombre": "Corte2"
+}
+
+### Eliminar servicio
+DELETE http://localhost:3000/api/servicios/4
+
+
+// ====================
+// EMPLEADO_SERVICIO
+// ====================
+
+### Obtener relaciones empleado-servicio
+GET http://localhost:3000/api/empleado_servicio
+
+
+### Asignar servicio a empleado
+POST http://localhost:3000/api/empleado_servicio
+Content-Type: application/json
+
+{
+    "empleado_id": 5,
+    "servicio_id": 3
+}
+
+
+### Actualizar relación
+PUT http://localhost:3000/api/empleado_servicio/8
+Content-Type: application/json
+
+{
+    "empleado_id": 5,
+    "servicio_id": 1 
+}
+
+
+### Eliminar relación
+DELETE http://localhost:3000/api/empleado_servicio/13
+
+
+# ====================
+# CITAS
+# ====================
+
+### Obtener citas
+GET http://localhost:3000/api/citas
+
+
+### Agregar cita
+POST http://localhost:3000/api/citas
+Content-Type: application/json
+
+{
+    "cliente_id": 5,
+    "empleado_id": 4,
+    "servicio_id": 4,
+    "fecha": "2026-06-07 14:30:00"   
+}
+
+### Actualizar cita
+PUT http://localhost:3000/api/citas/6
+Content-Type: application/json
+
+{
+    "cliente_id": 5,
+    "empleado_id": 3,
+    "servicio_id": 2,
+    "fecha": "2026-06-07 14:30:00" 
+}
+
+### Eliminar cita
+DELETE http://localhost:3000/api/citas/6

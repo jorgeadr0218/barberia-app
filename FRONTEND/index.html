@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+
+    <!-- Hace que la página sea responsive (se adapte a celulares) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>BarberShop</title>
+
+    <!-- Icono que aparece en la pestaña del navegador (Favicon) -->
+    <link rel="icon" type="image/png" href="assets/imagenes/icono-pestana.png">
+
+    <!-- Bootstrap: librería externa de estilos y componentes -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+     <!-- Google Fonts (tipografía personalizada) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=IM+Fell+Double+Pica+SC&family=Heebo&display=swap" rel="stylesheet">
+
+
+    <!-- CSS: personalizas tu diseño -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- =========================
+         1. TOP INFO
+    ========================== -->
+
+<div class="desde2020 py-1">
+    <div class="container">
+        Desde 2020 creando estilo
+    </div>
+</div>
+
+
+    <!-- =========================
+         2. NAVBAR
+    ========================== -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+     <div class="container">
+
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="assets/imagenes/logo.png" class="logo-img me-2">
+        <span class="fw-bold logo-text">BarberShop</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="menu">
+        <ul class="navbar-nav align-items-center">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="html/servicios.html">Servicios</a>
+            </li>
+            <li class="nav-item  ms-lg-3 mt-2 mt-lg-0">
+                <a class="btn btn-outline-light" href="html/reservar-cita.html">Reservar cita</a>
+            </li>
+        </ul>
+    </div>
+    </div>
+
+</nav>
+
+    <!-- =========================
+         3. HERO (INICIO)
+    ========================== -->
+
+<section id="inicio" class="hero">
+    <div class="container">
+        <div class="row flex-column-reverse flex-lg-row align-items-start">
+
+            <!-- TEXTO -->
+            <div class="col-lg-6 col-12 text-center text-lg-start">
+                <h1>Profesionales en barberia moderna y clasica</h1>
+            
+             <p>Bienvenido a tu nueva barberia de confianza.</p>
+             <p>Si no te gusta tu corte actual… es porque aun no has venido aquí.</p>
+            <p>Sube de nivel tu estilo.</p>
+
+            <!-- PROMO -->
+  <div class="promo mt-3">
+    <h4>Promo del mes</h4>
+    <p>Corte + barba con descuento</p>
+  </div>
+  
+ </div>
+         
+            <!-- IMAGEN -->
+            <div class="col-lg-6 col-12">
+                <img src="assets/imagenes/imagen-inicio.png" class="img-fluid" alt="">
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+    <!-- =========================
+         4. SERVICIOS DESTACADOS
+    ========================== -->
+
+    <section class="servicios py-3">
+<div class="container mt-2">
+  <h3 class="text-center titulo-servicios">Servicios destacados</h3>
+
+  <div class="row g-3">
+
+    <div class="col-md-3 col-6">
+      <div class="card servicio-card text-center h-100">
+        <div class="card-body">
+          <p>Cortes clásicos y modernos</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="card servicio-card text-center h-100">
+        <div class="card-body">
+          <p>Degradados (fade)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="card servicio-card text-center h-100">
+        <div class="card-body">
+          <p>Perfilado de barba</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="card servicio-card text-center h-100">
+        <div class="card-body">
+          <p>Diseño y estilo personalizado</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</section>
+
+
+    <!-- =========================
+         5. OPINIONES (TESTIMONIOS)
+    ========================== -->
+
+<section class="opiniones py-5">
+  <div class="container text-center">
+
+    <h3 class="titulo-opiniones">¿Qué opinan nuestros clientes?</h3>
+    <p class="subtitulo-opiniones">Más de 500 clientes satisfechos</p>
+
+    <div class="row justify-content-center mt-5 g-4">
+
+      <!-- CARD 1 -->
+      <div class="col-md-4 col-10">
+        <div class="opinion-card">
+          <div class="img-container">
+            <img src="assets/imagenes/cliente1.png" class="img-redonda">
+          </div>
+          <p class="texto">
+            “Excelente servicio,<br>muy profesionales.”
+          </p>
+          <span class="nombre">Lina Rincon</span>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="col-md-4 col-10">
+        <div class="opinion-card">
+          <div class="img-container">
+            <img src="assets/imagenes/cliente2.png" class="img-redonda">
+          </div>
+          <p class="texto">
+            “El mejor corte que me han hecho,<br>muy profesionales.”
+          </p>
+          <span class="nombre">Carlos Lopez</span>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="col-md-4 col-10">
+        <div class="opinion-card">
+          <div class="img-container">
+            <img src="assets/imagenes/cliente3.png" class="img-redonda">
+          </div>
+          <p class="texto">
+            “Muy buena atención<br>y ambiente.”
+          </p>
+          <span class="nombre">Miguel Torres</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- =========================
+         6. BANNER / INFO EXTRA
+    ========================== -->
+
+<section class="top-bar">
+  <div class="container-bar">
+
+    <div class="logo">
+      <img src="assets/imagenes/logo.png" class="logo-img">
+      <span class="logo-text">BarberShop</span>
+    </div>
+
+    <p class="top-text">
+      POR FAVOR, SIÉNTETE LIBRE DE ENVIARNOS UN CORREO ELECTRÓNICO A<br>
+      BARBERSHOP@QODEINTERACTIVE.COM PARA CUALQUIER CONSULTA ADICIONAL
+    </p>
+
+  </div>
+</section>
+
+
+    <!-- =========================
+         7. FOOTER
+    ========================== -->
+
+<section class="footer">
+  <div class="footer-container">
+
+    <div class="footer-col">
+      <h4>QUIENES SOMOS</h4>
+      <p>
+        Somos Una Barbería Enfocada<br>
+        En Estilo, Precisión Y Confianza.<br>
+        Cada Corte Está Diseñado Para<br>
+        Resaltar Tu Mejor Versión.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>HORARIOS DE ATENCION</h4>
+      <p>
+        lunes - Viernes<br>
+        05:30 - 24:00
+      </p>
+      <p>
+        Sábado<br>
+        00:00 - 24:00
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>UBICACION</h4>
+      <p>
+        68 Jasy Street, Bogota,<br>
+        NY 11201, Colombia
+      </p>
+      <p>
+        Barbershop@qodeinteractive.com<br>
+        + (57) 3209419316
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>RESERVA TU CITA AHORA ↗</h4>
+      <p>
+        WhatsApp<br>
+        TikTok &nbsp;&nbsp; Youtube &nbsp;&nbsp; Instagram<br>
+        Facebook &nbsp;&nbsp; Twitter
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- =========================
+         8. COPYRIGHT
+    ========================== -->
+<div class="footer-bottom">
+  © 2026 Tu Barbería - Todos los derechos reservados, Diseñado para quienes valoran el estilo
+</div>
+
+
+    <!-- =========================
+         SCRIPTS
+    ========================== -->
+
+ <!-- Scripts de Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+   
+</html>
