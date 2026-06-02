@@ -1,153 +1,240 @@
 # ====================
-# CLIENTES
+# CLIENTS
 # ====================
 
-### Obtener clientes
-GET http://localhost:3000/api/clientes
+### Get Clients
+GET http://localhost:3000/api/clients
 
 
-### Agregar cliente
-POST http://localhost:3000/api/clientes
+### Get Client By ID
+GET http://localhost:3000/api/clients/7
+
+
+### Post Client
+POST http://localhost:3000/api/clients
 Content-Type: application/json
 
 {
-    "nombre": "Prueba1",
-    "telefono": "3133416546"
+    "firstName": "Pepite",
+
+    "phone": "3209419317"
 }
 
 
-### Actualizar cliente
-PUT http://localhost:3000/api/clientes/6
+### Put Client
+PUT http://localhost:3000/api/clients/9
 Content-Type: application/json
 
 {
-    "nombre": "Prueba2",
-    "telefono": "3132733934"
+    "firstName": "Pepita",
+    "lastName": "Perez",
+    "phone": "3111111111"
 }
 
-### Eliminar cliente
-DELETE http://localhost:3000/api/clientes/6
-
-
-# ====================
-# Empleados
-# ====================
-
-### Obtener empleados
-GET http://localhost:3000/api/empleados
-
-
-### Agregar empleados
-POST http://localhost:3000/api/empleados
-Content-Type: application/json
-
-{
-    "nombre": "Empleado1"
-}
-
-
-### Actualizar empleado
-PUT http://localhost:3000/api/empleados/6
-Content-Type: application/json
-
-{
-    "nombre": "Empleado2"
-}
-
-### Eliminar empleado
-DELETE http://localhost:3000/api/empleados/6
+### Delete Client
+DELETE http://localhost:3000/api/clients/6
 
 
 # ====================
-# Servicios
+# Admins
 # ====================
 
-### Obtener servcios
-GET http://localhost:3000/api/servicios
-
-
-### Agregar servicios
-POST http://localhost:3000/api/servicios
+### Login Admins
+POST http://localhost:3000/api/admins
 Content-Type: application/json
 
 {
-    "nombre": "Corte1"
+    "username": "admin",
+    "passwordHash": "admin123"
 }
 
 
-### Actualizar servicio
-PUT http://localhost:3000/api/servicios/4
+# ====================
+# Employees
+# ====================
+
+### Get Employees
+GET http://localhost:3000/api/employees
+
+
+### Get Employee By ID
+GET http://localhost:3000/api/employees/11
+
+
+### Post Employee
+POST http://localhost:3000/api/employees
 Content-Type: application/json
 
 {
-    "nombre": "Corte2"
+    "firstName": "Fulano",
+    "lastName": "Tal",
+    "phone": "3000000000",
+    "salary": 2000000,
+    "startTime": "08:00:00",
+    "endTime": "18:00:00",
+    "hireDate": "2026-05-31"
 }
 
-### Eliminar servicio
-DELETE http://localhost:3000/api/servicios/4
+
+### Put Employee
+PUT http://localhost:3000/api/employees/6
+Content-Type: application/json
+
+{
+    
+    "firstName": "Fulano",
+    "lastName": "Tal",
+    "phone": "3000000001",
+    "salary": 2000000,
+    "startTime": "08:00:00",
+    "endTime": "18:00:00",
+    "hireDate": "2026-05-31"
+}
+
+### Delete Employee
+DELETE http://localhost:3000/api/employees/6
+
+
+# ====================
+# Service
+# ====================
+
+### Get Services
+GET http://localhost:3000/api/services
+
+
+### Get Service By ID
+GET http://localhost:3000/api/services/7
+
+
+### Post Service
+POST http://localhost:3000/api/services
+Content-Type: application/json
+
+{
+    "name": "Corte clásico",
+    "description": "Corte tradicional para caballero",
+    "imageUrl": "corte.png",
+    "durationMinutes": 30,
+    "basePrice": 15000
+}
+
+
+### Put Service
+PUT http://localhost:3000/api/services/4
+Content-Type: application/json
+
+{
+    "name": "Corte premium",
+    "description": "Incluye lavado",
+    "imageUrl": "premium.png",
+    "durationMinutes": 45,
+    "basePrice": 25000
+}
+
+
+### Delete Service
+DELETE http://localhost:3000/api/services/4
 
 
 // ====================
-// EMPLEADO_SERVICIO
+// EMPLOYEESERVICE
 // ====================
 
-### Obtener relaciones empleado-servicio
-GET http://localhost:3000/api/empleado_servicio
+### Get Relations
+GET http://localhost:3000/api/EmployeeService
 
 
-### Asignar servicio a empleado
-POST http://localhost:3000/api/empleado_servicio
+### Get Relation By ID
+GET http://localhost:3000/api/EmployeeService/1
+
+
+### Assign Service To Employee
+POST http://localhost:3000/api/EmployeeService
 Content-Type: application/json
 
 {
-    "empleado_id": 5,
-    "servicio_id": 3
+    "employeeid": 5,
+    "serviceid": 3
 }
 
 
-### Actualizar relación
-PUT http://localhost:3000/api/empleado_servicio/8
+### Update Relation
+PUT http://localhost:3000/api/EmployeeService/8
 Content-Type: application/json
 
 {
-    "empleado_id": 5,
-    "servicio_id": 1 
+    "employeeid": 5,
+    "serviceid": 1
 }
 
 
-### Eliminar relación
-DELETE http://localhost:3000/api/empleado_servicio/13
+### Delete Relation
+DELETE http://localhost:3000/api/EmployeeService/13
+
+# ====================
+# Appointments
+# ====================
+
+### Get Appointments
+GET http://localhost:3000/api/appointments
+
+
+### Get Appointment By ID
+GET http://localhost:3000/api/appointments/1
+
+
+### Create Appointment
+POST http://localhost:3000/api/appointments
+Content-Type: application/json
+
+{
+    "appointmentDate": "2026-06-07 14:30:00",
+    "finalPrice": 25000,
+    "clientid": 1,
+    "employeeid": 1,
+    "serviceid": 1
+}
+
+
+### Update Appointment
+PUT http://localhost:3000/api/appointments/1
+Content-Type: application/json
+
+{
+    "appointmentDate": "2026-06-07 15:00:00",
+    "finalPrice": 30000,
+    "clientid": 1,
+    "employeeid": 1,
+    "serviceid": 2
+}
+
+
+### Delete Appointment
+DELETE http://localhost:3000/api/appointments/1
 
 
 # ====================
-# CITAS
+# AUTH
 # ====================
 
-### Obtener citas
-GET http://localhost:3000/api/citas
-
-
-### Agregar cita
-POST http://localhost:3000/api/citas
+### Register Client
+POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-    "cliente_id": 5,
-    "empleado_id": 4,
-    "servicio_id": 4,
-    "fecha": "2026-06-07 14:30:00"   
+    "firstName": "Angela",
+    "lastName": "Rodriguez",
+    "phone": "3001234568",
+    "passwordHash": "1234"
 }
 
-### Actualizar cita
-PUT http://localhost:3000/api/citas/6
+
+### Login Client
+POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-    "cliente_id": 5,
-    "empleado_id": 3,
-    "servicio_id": 2,
-    "fecha": "2026-06-07 14:30:00" 
+    "phone": "3001234568",
+    "passwordHash": "1234"
 }
-
-### Eliminar cita
-DELETE http://localhost:3000/api/citas/6
