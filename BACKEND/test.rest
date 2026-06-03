@@ -225,7 +225,7 @@ Content-Type: application/json
 {
     "firstName": "Angela",
     "lastName": "Rodriguez",
-    "phone": "3001234568",
+    "phone": "3001234569",
     "passwordHash": "1234"
 }
 

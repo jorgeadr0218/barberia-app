@@ -10,9 +10,9 @@ router.post("/register", (req, res) => {
     const { firstName, lastName, phone, passwordHash } = req.body;
 
     // Validación
-    if (!firstName || !lastName || !phone || !passwordHash) {
+    if (!firstName || !phone || !passwordHash) {
         return res.status(400).json({
-            error: "Todos los campos son requeridos"
+            error: "Nombre, telefono y contraseña son requeridos"
         });
     }
 
@@ -24,7 +24,7 @@ router.post("/register", (req, res) => {
 
     conexion.query(
         sql,
-        [firstName, lastName, phone, passwordHash],
+        [firstName, lastName || null, phone, passwordHash],
         (err, result) => {
 
             if (err) {
