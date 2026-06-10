@@ -40,7 +40,7 @@ registerForm.addEventListener("submit", async (e) => {
         if (!response.ok) {
             message.innerHTML = `
                 <div class="alert alert-danger">
-                    ${data.message || "Error al registrar usuario"}
+                    ${data.error || data.message || "Error al registrar usuario"}
                 </div>
             `;
             return;

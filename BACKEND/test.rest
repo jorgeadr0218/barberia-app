@@ -7,7 +7,7 @@ GET http://localhost:3000/api/clients
 
 
 ### Get Client By ID
-GET http://localhost:3000/api/clients/7
+GET http://localhost:3000/api/clients/1
 
 
 ### Post Client
@@ -178,6 +178,10 @@ DELETE http://localhost:3000/api/EmployeeService/13
 
 ### Get Appointments
 GET http://localhost:3000/api/appointments
+
+
+### Get Appointments By Client
+GET http://localhost:3000/api/appointments/client/1
 
 
 ### Get Appointment By ID

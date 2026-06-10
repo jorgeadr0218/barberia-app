@@ -43,6 +43,44 @@ router.get("/", (req, res) => {
 });
 
 
+router.get("/client/:clientid", (req, res) => {
+
+    const { clientid } = req.params;
+
+    const sql = `
+        SELECT
+            Appointments.ID,
+            Appointments.AppointmentDate,
+            Appointments.Status,
+            Services.Name AS service,
+            CONCAT(Employees.FirstName, ' ', Employees.LastName) AS employee
+        FROM Appointments
+        INNER JOIN Services
+            ON Appointments.ServiceID = Services.ID
+        INNER JOIN Employees
+            ON Appointments.EmployeeID = Employees.ID
+        WHERE Appointments.ClientID = ?
+        ORDER BY Appointments.AppointmentDate DESC
+    `;
+
+    conexion.query(sql, [clientid], (err, result) => {
+
+        if (err) {
+
+            console.log(err);
+
+            return res.status(500).json({
+                error: "Error al obtener citas"
+            });
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+
 // Get Appointment By ID
 router.get("/:id", (req, res) => {
 

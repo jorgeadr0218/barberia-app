@@ -33,7 +33,7 @@ router.post("/register", (req, res) => {
 
                 if (err.code === "ER_DUP_ENTRY") {
                     return res.status(400).json({
-                        error: "El teléfono ya existe"
+                        error: "El teléfono ya esta registrado"
                     });
                 }
 

@@ -35,6 +35,12 @@ loginForm.addEventListener("submit", async (e) => {
             return;
         }
 
+        localStorage.setItem("clientId", data.client.id);
+
+        localStorage.setItem("clientName", data.client.firstName);
+
+        window.location.href = "../index.html";
+
         message.innerHTML = `
             <div class="alert alert-success">
                 Login exitoso
