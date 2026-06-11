@@ -7,6 +7,27 @@ window.location.href = "login.html";
 const appointmentForm = document.getElementById("appointmentForm");
 const message = document.getElementById("message");
 
+async function cargarServicios() {
+    try {
+        const response = await fetch("http://localhost:3000/api/services");
+        const services = await response.json();
+
+        const select = document.getElementById("serviceid");
+
+        services.forEach(service => {
+            const option = document.createElement("option");
+            option.value = service.ID;
+            option.textContent = service.Name;
+            select.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+cargarServicios();
+
 appointmentForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
