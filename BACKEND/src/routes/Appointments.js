@@ -132,14 +132,38 @@ router.get("/:id", (req, res) => {
 // Create Appointment
 router.post("/", (req, res) => {
 
-    const { appointmentDate, finalPrice, clientid, employeeid, serviceid } = req.body;
+    const { appointmentDate, clientid, employeeid, serviceid } = req.body;
 
     // Validación
-    if (!appointmentDate || !finalPrice || !clientid || !employeeid || !serviceid) {
+    if (!appointmentDate || !clientid || !employeeid || !serviceid) {
         return res.status(400).json({
             error: "Todos los campos son requeridos"
         });
     }
+
+const sqlServicio = `
+    SELECT BasePrice
+    FROM Services
+    WHERE ID = ?
+`;
+
+conexion.query(sqlServicio, [serviceid], (err, servicio) => {
+
+    if (err) {
+        console.log(err);
+
+        return res.status(500).json({
+            error: "Error al obtener el precio del servicio"
+        });
+    }
+
+    if (servicio.length === 0) {
+        return res.status(404).json({
+            error: "Servicio no encontrado"
+        });
+    }
+
+    const finalPrice = servicio[0].BasePrice;
 
     const sql = `
         INSERT INTO Appointments
@@ -179,8 +203,9 @@ router.post("/", (req, res) => {
         }
     );
 
-});
+});    
 
+});
 
 // Put Appointment
 router.put("/:id", (req, res) => {

@@ -28,6 +28,29 @@ async function cargarServicios() {
 
 cargarServicios();
 
+async function cargarEmpleados() {
+    try {
+        const response = await fetch("http://localhost:3000/api/employees");
+        const employees = await response.json();
+
+        const select = document.getElementById("employeeid");
+
+        employees.forEach(employee => {
+            const option = document.createElement("option");
+            option.value = employee.ID;
+            option.textContent =
+                employee.FirstName + " " + employee.LastName;
+
+            select.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+cargarEmpleados();
+
 appointmentForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -36,10 +59,7 @@ appointmentForm.addEventListener("submit", async (e) => {
     const date = document.getElementById("date").value;
     const time = document.getElementById("time").value;
 
-
-
-
-
+    
     if (!serviceid || !employeeid || !date || !time) {
         message.innerHTML = `
             <div class="alert alert-danger">
@@ -51,17 +71,10 @@ appointmentForm.addEventListener("submit", async (e) => {
 
     const appointmentDate = `${date} ${time}:00`;
 
-    let finalPrice = 0;
-
-    if (serviceid == 1) finalPrice = 20000;
-    if (serviceid == 2) finalPrice = 30000;
-    if (serviceid == 3) finalPrice = 15000;
-
     try {
 
-        console.log({
+    console.log({
     appointmentDate,
-    finalPrice,
     clientid,
     employeeid,
     serviceid
@@ -74,7 +87,6 @@ appointmentForm.addEventListener("submit", async (e) => {
             },
             body: JSON.stringify({
                 appointmentDate,
-                finalPrice,
                 clientid,
                 employeeid,
                 serviceid
