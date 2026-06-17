@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>    
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+
+    <!-- Hace que la página sea responsive (se adapte a celulares) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>BarberShop</title>
+
+    <!-- Icono que aparece en la pestaña del navegador (Favicon) -->
+    <link rel="icon" type="image/png" href="../assets/imagenes/icono-pestana.png">
+
+    <!-- Bootstrap: librería externa de estilos y componentes -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+     <!-- Google Fonts (tipografía personalizada) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=IM+Fell+Double+Pica+SC&family=Heebo&display=swap" rel="stylesheet">
+
+
+    <!-- CSS: personalizas tu diseño -->
+    <link rel="stylesheet" href="../css/styles.css">  
+</head>
+<body>
+
+    <!-- =========================
+    1. FORMULARIO LOGIN
+    ========================== -->
+
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+
+        <div class="card shadow p-4 w-100" style="max-width: 500px;">
+
+            <h2 class="text-center mb-4">
+                Iniciar Sesión Administrador
+            </h2>
+
+            <form id="loginForm">
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">
+                        Usuario
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        Contraseña
+                    </label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        required
+                    >
+                </div>
+
+                <div id="message" class="mb-3"></div>
+
+                <button
+                    type="submit"
+                    class="btn btn-dark w-100"
+                >
+                    Iniciar sesión
+                </button>
+
+            </form>
+
+            <hr>
+
+            <p class="text-center mb-0">
+                Acceso exclusivo para administradores
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts de Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/admin.js"></script>
+
+</body>
+</html>

@@ -28,6 +28,38 @@ router.get("/", (req, res) => {
 });
 
 
+router.get("/service/:serviceid", (req, res) => {
+
+    const { serviceid } = req.params;
+
+    const sql = `
+        SELECT
+            Employees.ID,
+            Employees.FirstName,
+            Employees.LastName
+        FROM EmployeeService
+        INNER JOIN Employees
+            ON EmployeeService.EmployeeID = Employees.ID
+        WHERE EmployeeService.ServiceID = ?
+    `;
+
+    conexion.query(sql, [serviceid], (err, result) => {
+
+        if (err) {
+            console.log(err);
+
+            return res.status(500).json({
+                error: "Error al obtener empleados"
+            });
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+
 // Get Employee By ID
 router.get("/:id", (req, res) => {
 
@@ -188,6 +220,65 @@ router.put("/:id", (req, res) => {
 
         }
     );
+
+});
+
+
+router.put("/deactivate/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    const sql = `
+        UPDATE Employees
+        SET IsActive = FALSE
+        WHERE ID = ?
+    `;
+
+    conexion.query(sql, [id], (err, result) => {
+
+        if (err) {
+            console.log(err);
+
+            return res.status(500).json({
+                error: "Error al desactivar empleado"
+            });
+        }
+
+        res.json({
+            mensaje: "Empleado desactivado correctamente"
+        });
+
+    });
+
+});
+
+router.put("/reactivate/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    const sql = `
+        UPDATE Employees
+        SET IsActive = TRUE
+        WHERE ID = ?
+    `;
+
+    conexion.query(sql, [id], (err, result) => {
+
+        if (err) {
+
+            console.log(err);
+
+            return res.status(500).json({
+                error: "Error al reactivar empleado"
+            });
+
+        }
+
+        res.json({
+            mensaje: "Empleado reactivado correctamente"
+        });
+
+    });
 
 });
 

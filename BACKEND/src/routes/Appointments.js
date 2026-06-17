@@ -142,7 +142,7 @@ router.post("/", (req, res) => {
     }
 
 const sqlServicio = `
-    SELECT BasePrice
+    SELECT BasePrice, DurationMinutes
     FROM Services
     WHERE ID = ?
 `;
@@ -165,45 +165,116 @@ conexion.query(sqlServicio, [serviceid], (err, servicio) => {
 
     const finalPrice = servicio[0].BasePrice;
 
-    const sql = `
-        INSERT INTO Appointments
-        (AppointmentDate, FinalPrice, ClientID, EmployeeID, ServiceID)
-        VALUES (?, ?, ?, ?, ?)
-    `;
+    const duration = servicio[0].DurationMinutes;
 
-    conexion.query(
-        sql,
-        [appointmentDate, finalPrice, clientid, employeeid, serviceid],
-        (err, result) => {
+    const sqlEmpleado = `
+    SELECT StartTime, EndTime
+    FROM Employees
+    WHERE ID = ?
+`;
 
-            if (err) {
-                console.log(err);
+    const startDate = new Date(appointmentDate);
 
-                if (err.code === "ER_DUP_ENTRY") {
-                    return res.status(400).json({
-                        error: "El empleado ya tiene una cita en esa fecha y hora"
+const endDate = new Date(
+    startDate.getTime() + duration * 60000
+);
+
+const sqlConflicto = `
+    SELECT ID
+    FROM Appointments
+    WHERE EmployeeID = ?
+    AND ? < EndDateTime
+    AND ? > AppointmentDate
+`;
+
+const sql = `
+    INSERT INTO Appointments
+    (
+        AppointmentDate,
+        EndDateTime,
+        FinalPrice,
+        ClientID,
+        EmployeeID,
+        ServiceID
+    )
+    VALUES (?, ?, ?, ?, ?, ?)
+`;
+
+conexion.query(
+    sqlEmpleado,
+    [employeeid],
+    (err, empleado) => {
+
+        if (err) {
+            return res.status(500).json({
+                error: "Error al obtener empleado"
+            });
+        }
+
+        const horaCita = appointmentDate.split(" ")[1];
+
+        const horaInicioTrabajo = empleado[0].StartTime;
+        const horaFinTrabajo = empleado[0].EndTime;
+
+        if (
+            horaCita < horaInicioTrabajo ||
+            horaCita > horaFinTrabajo
+        ) {
+            return res.status(400).json({
+                error: "Fuera del horario laboral del barbero"
+            });
+        }
+
+        conexion.query(
+            sqlConflicto,
+            [employeeid, appointmentDate, endDate],
+            (err, citas) => {
+
+                if (err) {
+                    return res.status(500).json({
+                        error: "Error al validar disponibilidad"
                     });
                 }
 
-                return res.status(500).json({
-                    error: "Error al crear la cita"
-                });
+                if (citas.length > 0) {
+                    return res.status(400).json({
+                        error: "Ese horario ya está ocupado"
+                    });
+                }
+
+                conexion.query(
+                    sql,
+                    [
+                        appointmentDate,
+                        endDate,
+                        finalPrice,
+                        clientid,
+                        employeeid,
+                        serviceid
+                    ],
+                    (err, result) => {
+
+                        if (err) {
+                            return res.status(500).json({
+                                error: "Error al crear la cita"
+                            });
+                        }
+
+                        res.status(201).json({
+                            mensaje: "Cita creada correctamente",
+                            id: result.insertId
+                        });
+
+                    }
+                );
+
             }
+        );
 
-            res.status(201).json({
-                mensaje: "Cita creada correctamente",
-                id: result.insertId,
-                appointmentDate,
-                finalPrice,
-                clientid,
-                employeeid,
-                serviceid
-            });
+    }
+);
 
-        }
-    );
-
-});    
+});
 
 });
 
@@ -266,6 +337,36 @@ router.put("/:id", (req, res) => {
 
 });
 
+router.put("/status/:id", (req, res) => {
+
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const sql = `
+        UPDATE Appointments
+        SET Status = ?
+        WHERE ID = ?
+    `;
+
+    conexion.query(sql, [status, id], (err, result) => {
+
+        if (err) {
+
+            console.log(err);
+
+            return res.status(500).json({
+                error: "Error al actualizar estado"
+            });
+
+        }
+
+        res.json({
+            mensaje: "Estado actualizado correctamente"
+        });
+
+    });
+
+});
 
 // Delete Appointment
 router.delete("/:id", (req, res) => {
