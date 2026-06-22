@@ -1,3 +1,7 @@
+// ====================
+// LOGIN ADMIN
+// ====================
+
 const adminUsername = localStorage.getItem("adminUsername");
 
 if (!adminUsername) {
@@ -7,62 +11,186 @@ if (!adminUsername) {
 document.getElementById("adminName").textContent =
    `Bienvenido ${adminUsername}`;
 
-    const btnAppointments =
-    document.getElementById("btnAppointments");
 
-    const btnEmployees =
-    document.getElementById("btnEmployees");
+// ====================
+// ELEMENTOS DEL DOM
+// ====================
 
-    const btnNewEmployee =
-    document.getElementById("btnNewEmployee");
+const btnAppointments =
+document.getElementById("btnAppointments");
 
-    const appointmentsTableBody =
-    document.getElementById("appointmentsTableBody");
+const btnEmployees =
+document.getElementById("btnEmployees");
 
-    const tableHeaders =
-    document.getElementById("tableHeaders");
+const btnServices =
+document.getElementById("btnServices");
 
+const btnNewEmployee =
+document.getElementById("btnNewEmployee");
 
-    const editEmployeeContainer =
-    document.getElementById("editEmployeeContainer");
+const appointmentsTableBody =
+document.getElementById("appointmentsTableBody");
+
+const tableHeaders =
+document.getElementById("tableHeaders");
+
+const editEmployeeContainer =
+document.getElementById("editEmployeeContainer");
 
 const editEmployeeId =
-    document.getElementById("editEmployeeId");
+document.getElementById("editEmployeeId");
 
 const editFirstName =
-    document.getElementById("editFirstName");
+document.getElementById("editFirstName");
 
 const editLastName =
-    document.getElementById("editLastName");
+document.getElementById("editLastName");
 
 const editPhone =
-    document.getElementById("editPhone");
+document.getElementById("editPhone");
 
 const editSalary =
-    document.getElementById("editSalary");
+document.getElementById("editSalary");
 
 const editStartTime =
-    document.getElementById("editStartTime");
+document.getElementById("editStartTime");
 
 const editEndTime =
-    document.getElementById("editEndTime");
+document.getElementById("editEndTime");
 
 const editHireDate =
-    document.getElementById("editHireDate");    
+document.getElementById("editHireDate");    
+
+const employeeServicesContainer =
+document.getElementById("employeeServicesContainer");
 
 const saveEmployeeBtn =
-    document.getElementById("saveEmployeeBtn");
+document.getElementById("saveEmployeeBtn");
 
-    const employeeFormTitle =
-    document.getElementById("employeeFormTitle");
+const employeeFormTitle =
+document.getElementById("employeeFormTitle");
 
-    btnNewEmployee.addEventListener("click", () => {
+const btnNewService =
+document.getElementById("btnNewService");
 
-    editEmployeeContainer.style.display = "block";
+const editServiceContainer =
+document.getElementById("editServiceContainer");
 
-    employeeFormTitle.textContent = "Crear Empleado";
+const serviceFormTitle =
+document.getElementById("serviceFormTitle");
 
-    editEmployeeId.value = "";
+const editServiceId =
+document.getElementById("editServiceId");
+
+const editServiceName =
+document.getElementById("editServiceName");
+
+const editServiceDescription =
+document.getElementById("editServiceDescription");
+
+const editServiceDuration =
+document.getElementById("editServiceDuration");
+
+const editServicePrice =
+document.getElementById("editServicePrice");
+
+const saveServiceBtn =
+document.getElementById("saveServiceBtn");
+
+
+// ====================
+// CARGAR SERVICIOS
+// ====================
+
+async function loadServices() {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:3000/api/services"
+        );
+
+        const services = await response.json();
+
+        employeeServicesContainer.innerHTML = "";
+
+        services.forEach(service => {
+
+            employeeServicesContainer.innerHTML += `
+                <div class="form-check">
+
+                    <input
+                        class="form-check-input serviceCheckbox"
+                        type="checkbox"
+                        value="${service.ID}"
+                    >
+
+                    <label class="form-check-label">
+                        ${service.Name}
+                    </label>
+
+                </div>
+            `;
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+// ====================
+// CARGAR SERVICIOS DEL EMPLEADO
+// ====================
+
+async function loadEmployeeServices(employeeId) {
+
+    try {
+
+        const response = await fetch(
+            `http://localhost:3000/api/employees/employee-services/${employeeId}`
+        );
+
+        const services = await response.json();
+
+        services.forEach(service => {
+
+            const checkbox = document.querySelector(
+                `.serviceCheckbox[value="${service.ID}"]`
+            );
+
+            if (checkbox) {
+                checkbox.checked = true;
+            }
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+// ====================
+// NUEVO EMPLEADO
+// ====================    
+
+btnNewEmployee.addEventListener("click", () => {
+
+editEmployeeContainer.style.display = "block";
+
+employeeFormTitle.textContent = "Crear Empleado";
+
+loadServices();
+
+editEmployeeId.value = "";
 
     editFirstName.value = "";
     editLastName.value = "";
@@ -75,9 +203,46 @@ const saveEmployeeBtn =
 });
 
 
+// ====================
+// NUEVO SERVICIO
+// ====================
+
+btnNewService.addEventListener("click", () => {
+
+editServiceContainer.style.display = "block";
+
+serviceFormTitle.textContent = "Crear Servicio";
+
+editServiceId.value = "";
+
+    editServiceName.value = "";
+    editServiceDescription.value = "";
+    editServiceDuration.value = "";
+    editServicePrice.value = "";
+
+});
+
+
+// ====================
+// GESTIONAR CITAS
+// ====================
+
 btnAppointments.addEventListener("click", async () => {
 
+    btnAppointments.classList.remove("btn-dark");
+    btnAppointments.classList.add("btn-secondary");
+
+    btnEmployees.classList.remove("btn-secondary");
+    btnEmployees.classList.add("btn-dark");
+
+    btnServices.classList.remove("btn-secondary");
+    btnServices.classList.add("btn-dark");
+
+    editEmployeeContainer.style.display = "none";
+    editServiceContainer.style.display = "none";
+
     btnNewEmployee.style.display = "none";
+    btnNewService.style.display = "none";
 
     try {
 
@@ -86,6 +251,7 @@ btnAppointments.addEventListener("click", async () => {
             <th>Servicio</th>
             <th>Barbero</th>
             <th>Fecha</th>
+            <th>Hora</th>
             <th>Estado</th>
             <th>Acciones</th>
         `;
@@ -102,12 +268,22 @@ btnAppointments.addEventListener("click", async () => {
 
         appointments.forEach(appointment => {
 
+            const fecha = new Date(appointment.AppointmentDate);
+
+            const fechaFormateada = fecha.toLocaleDateString("es-CO");
+
+            const horaFormateada = fecha.toLocaleTimeString("es-CO", {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+
             appointmentsTableBody.innerHTML += `
                 <tr>
                     <td>${appointment.client}</td>
                     <td>${appointment.service}</td>
                     <td>${appointment.employee}</td>
-                    <td>${appointment.AppointmentDate}</td>
+                    <td>${fechaFormateada}</td>
+                    <td>${horaFormateada}</td>
                     <td>${appointment.Status}</td>
                     <td>
                         ${
@@ -147,14 +323,14 @@ btnAppointments.addEventListener("click", async () => {
     ""
 }  
                         
-                    </td>
+             </td>
 
-                </tr>
-            `;
-        });
+        </tr>
+    `;
+ });
 
 
-        const confirmButtons =
+    const confirmButtons =
     document.querySelectorAll(".btnConfirmAppointment");
 
     const completeButtons =
@@ -290,6 +466,10 @@ cancelButtons.forEach(button => {
 
 const logoutAdminBtn = document.getElementById("logoutAdminBtn");
 
+// ====================
+// CERRAR SESIÓN
+// ====================
+
 logoutAdminBtn.addEventListener("click", () => {
 
     localStorage.removeItem("adminUsername");
@@ -298,11 +478,29 @@ logoutAdminBtn.addEventListener("click", () => {
 
 });
 
+
+// ====================
+// GESTIONAR EMPLEADOS
+// ====================
+
 btnEmployees.addEventListener("click", async () => {
 
-      btnNewEmployee.style.display = "inline-block";
+    btnEmployees.classList.remove("btn-dark");
+    btnEmployees.classList.add("btn-secondary");
 
-      console.log("Botón empleados pulsado");
+    btnAppointments.classList.remove("btn-secondary");
+    btnAppointments.classList.add("btn-dark");
+
+    btnServices.classList.remove("btn-secondary");
+    btnServices.classList.add("btn-dark");
+
+    // Ocultar formulario de servicios
+    editServiceContainer.style.display = "none";
+
+    btnNewEmployee.style.display = "inline-block";
+    btnNewService.style.display = "none";
+
+    console.log("Botón empleados pulsado");
 
     try {
 
@@ -340,29 +538,31 @@ btnEmployees.addEventListener("click", async () => {
                     <td>$${employee.Salary}</td>
                     <td>${employee.StartTime} - ${employee.EndTime}</td>
                     <td>${employee.IsActive ? "Activo" : "Inactivo"}</td>
-
+                    
                     <td>
-                    <button
-                        class="btn btn-warning btn-sm btnEditEmployee"
-                        data-id="${employee.ID}">
-                        Editar
-                    </button>
 
-                    ${
-                        employee.IsActive
-                        ?
-                        `<button
-                            class="btn btn-danger btn-sm btnDeleteEmployee"
+                        <button
+                            class="btn btn-warning btn-sm btnEditEmployee"
                             data-id="${employee.ID}">
-                            Desactivar
-                        </button>`
-                        :
-                        `<button
-                            class="btn btn-success btn-sm btnReactivateEmployee"
-                            data-id="${employee.ID}">
-                            Reactivar
-                        </button>`
-                       }
+                            Editar
+                            </button>
+
+                        ${
+                           employee.IsActive
+                           ?
+                            `<button
+                                class="btn btn-danger btn-sm btnDeleteEmployee"
+                                data-id="${employee.ID}">
+                                Desactivar
+                            </button>`
+                            :
+                            `<button
+                                class="btn btn-success btn-sm btnReactivateEmployee"
+                                data-id="${employee.ID}">
+                                Reactivar
+                            </button>`
+                        }
+
                     </td>
 
                 </tr>
@@ -376,9 +576,12 @@ const deleteButtons =
 const editButtons =
     document.querySelectorAll(".btnEditEmployee");
 
+const serviceButtons =
+    document.querySelectorAll(".btnEmployeeServices");    
+
 editButtons.forEach(button => {
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
 
         const employeeId = button.dataset.id;
 
@@ -390,6 +593,8 @@ editButtons.forEach(button => {
 
         employeeFormTitle.textContent = "Editar Empleado";
     
+        await loadServices();
+        await loadEmployeeServices(employee.ID);
 
         editEmployeeId.value = employee.ID;
         editFirstName.value = employee.FirstName;
@@ -403,6 +608,7 @@ editButtons.forEach(button => {
     });
 
 });
+
 
 const reactivateButtons =
     document.querySelectorAll(".btnReactivateEmployee");
@@ -492,14 +698,24 @@ deleteButtons.forEach(button => {
 
 });
 
+
+// ====================
+// GUARDAR EMPLEADO
+// ====================
+
 saveEmployeeBtn.addEventListener("click", async () => {
 
     const employeeId = editEmployeeId.value;
+
+    const selectedServices = [
+       ...document.querySelectorAll(".serviceCheckbox:checked")
+    ].map(checkbox => checkbox.value);
 
     const isNewEmployee = employeeId === "";
 
     try {
 
+        console.log("Servicios seleccionados:", selectedServices);
         const response = await fetch(
             isNewEmployee
             ? "http://localhost:3000/api/employees"
@@ -516,18 +732,267 @@ saveEmployeeBtn.addEventListener("click", async () => {
                     salary: editSalary.value,
                     startTime: editStartTime.value,
                     endTime: editEndTime.value,
-                    hireDate: editHireDate.value
+                    hireDate: editHireDate.value,
+                    services: selectedServices
                 })
             }
         );
 
         const data = await response.json();
 
+        if (!response.ok) {
+            alert(data.error);
+            return;
+        }
+
         alert(data.mensaje);
 
         editEmployeeContainer.style.display = "none";
 
         btnEmployees.click();
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+});
+
+
+// ====================
+// GUARDAR SERVICIO
+// ====================
+
+saveServiceBtn.addEventListener("click", async () => {
+    
+    const serviceId = editServiceId.value;
+
+const isNewService = serviceId === "";
+
+    try {
+
+ const response = await fetch(
+    isNewService
+    ? "http://localhost:3000/api/services"
+    : `http://localhost:3000/api/services/${serviceId}`,
+    {
+        method: isNewService ? "POST" : "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: editServiceName.value,
+            description: editServiceDescription.value,
+            imageUrl: "",
+            durationMinutes: editServiceDuration.value,
+            basePrice: editServicePrice.value
+        })
+    }
+);
+
+        const data = await response.json();
+
+        alert(data.mensaje);
+
+        editServiceContainer.style.display = "none";
+
+        btnServices.click();
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+});
+
+
+// ====================
+// GESTIONAR SERVICIOS
+// ====================
+
+btnServices.addEventListener("click", async () => {
+
+    btnServices.classList.remove("btn-dark");
+    btnServices.classList.add("btn-secondary");
+
+    btnAppointments.classList.remove("btn-secondary");
+    btnAppointments.classList.add("btn-dark");
+
+    btnEmployees.classList.remove("btn-secondary");
+    btnEmployees.classList.add("btn-dark");
+
+    // Ocultar formulario de empleados
+    editEmployeeContainer.style.display = "none";
+
+    btnNewService.style.display = "inline-block";
+    btnNewEmployee.style.display = "none";
+
+    try {
+
+        tableHeaders.innerHTML = `
+            <th>ID</th>
+            <th>Servicio</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        `;
+
+        const response = await fetch(
+            "http://localhost:3000/api/services"
+        );
+
+        const services = await response.json();
+
+        console.log("Services:", services);
+
+        appointmentsTableBody.innerHTML = "";
+
+services.forEach(service => {
+
+    appointmentsTableBody.innerHTML += `
+        <tr>
+            <td>${service.ID}</td>
+            <td>${service.Name}</td>
+            <td>$${Number(service.BasePrice).toLocaleString()}</td>
+            <td>${service.IsActive ? "Activo" : "Inactivo"}</td>
+
+            <td>
+
+                <button
+                    class="btn btn-warning btn-sm btnEditService"
+                    data-id="${service.ID}">
+                    Editar
+                </button>
+
+                ${
+                    service.IsActive
+                    ?
+                    `<button
+                        class="btn btn-danger btn-sm btnDeleteService"
+                        data-id="${service.ID}">
+                        Desactivar
+                    </button>`
+                    :
+                    `<button
+                        class="btn btn-success btn-sm btnReactivateService"
+                        data-id="${service.ID}">
+                        Reactivar
+                    </button>`
+                }
+
+            </td>
+
+        </tr>
+    `;
+
+});
+
+const editServiceButtons =
+    document.querySelectorAll(".btnEditService");
+
+editServiceButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const serviceId = button.dataset.id;
+
+        const service = services.find(
+            serv => serv.ID == serviceId
+        );
+
+        editServiceContainer.style.display = "block";
+
+        serviceFormTitle.textContent =
+            "Editar Servicio";
+
+        editServiceId.value =
+            service.ID;
+
+        editServiceName.value =
+            service.Name;
+
+        editServiceDescription.value =
+            service.Description || "";
+
+        editServiceDuration.value =
+            service.DurationMinutes;
+
+        editServicePrice.value =
+            service.BasePrice;
+
+    });
+
+});
+
+const deleteServiceButtons =
+    document.querySelectorAll(".btnDeleteService");
+
+deleteServiceButtons.forEach(button => {
+
+    button.addEventListener("click", async () => {
+
+        const serviceId = button.dataset.id;
+
+        try {
+
+            const response = await fetch(
+                `http://localhost:3000/api/services/deactivate/${serviceId}`,
+                {
+                    method: "PUT"
+                }
+            );
+
+            const data = await response.json();
+
+            alert(data.mensaje);
+
+            btnServices.click();
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    });
+
+});
+
+const reactivateServiceButtons =
+    document.querySelectorAll(".btnReactivateService");
+
+reactivateServiceButtons.forEach(button => {
+
+    button.addEventListener("click", async () => {
+
+        const serviceId = button.dataset.id;
+
+        try {
+
+            const response = await fetch(
+                `http://localhost:3000/api/services/reactivate/${serviceId}`,
+                {
+                    method: "PUT"
+                }
+            );
+
+            const data = await response.json();
+
+            alert(data.mensaje);
+
+            btnServices.click();
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    });
+
+});
 
     } catch (error) {
 

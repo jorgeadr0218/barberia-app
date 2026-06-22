@@ -4,7 +4,10 @@ const router = express.Router();
 const conexion = require("../database/conexion");
 
 
-// Get Appointments
+// ===============================
+// OBTENER TODAS LAS CITAS
+// ===============================
+
 router.get("/", (req, res) => {
 
     const sql = `
@@ -24,6 +27,7 @@ router.get("/", (req, res) => {
             ON Appointments.EmployeeID = Employees.ID
         INNER JOIN Services
             ON Appointments.ServiceID = Services.ID
+        ORDER BY Appointments.AppointmentDate DESC
     `;
 
     conexion.query(sql, (err, result) => {
@@ -43,6 +47,10 @@ router.get("/", (req, res) => {
 });
 
 
+// ===============================
+// OBTENER CITA DE UN CLIENTE
+// ===============================
+
 router.get("/client/:clientid", (req, res) => {
 
     const { clientid } = req.params;
@@ -53,6 +61,7 @@ router.get("/client/:clientid", (req, res) => {
             Appointments.AppointmentDate,
             Appointments.Status,
             Services.Name AS service,
+            Services.BasePrice,
             CONCAT(Employees.FirstName, ' ', Employees.LastName) AS employee
         FROM Appointments
         INNER JOIN Services
@@ -81,7 +90,48 @@ router.get("/client/:clientid", (req, res) => {
 });
 
 
-// Get Appointment By ID
+// =============================================
+// OBTENER HORARIOS OCUPADOS DE UN EMPLEADO
+// =============================================
+
+router.get("/available-hours/:employeeid/:date", (req, res) => {
+
+    const { employeeid, date } = req.params;
+
+    const sql = `
+        SELECT
+            AppointmentDate,
+            EndDateTime
+        FROM Appointments
+        WHERE EmployeeID = ?
+        AND DATE(AppointmentDate) = ?
+    `;
+
+    conexion.query(
+    sql,
+    [employeeid, date],
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+
+            return res.status(500).json({
+                error: "Error al obtener horarios"
+            });
+        }
+
+        res.json(result);
+
+    }
+);
+
+});
+
+
+// ===============================
+// OBTENER CITA POR ID
+// ===============================
+
 router.get("/:id", (req, res) => {
 
     const { id } = req.params;
@@ -129,10 +179,13 @@ router.get("/:id", (req, res) => {
 });
 
 
-// Create Appointment
+// ===============================
+// CREAR CITA
+// ===============================
+
 router.post("/", (req, res) => {
 
-    const { appointmentDate, clientid, employeeid, serviceid } = req.body;
+const { appointmentDate, clientid, employeeid, serviceid } = req.body;
 
     // Validación
     if (!appointmentDate || !clientid || !employeeid || !serviceid) {
@@ -141,6 +194,7 @@ router.post("/", (req, res) => {
         });
     }
 
+// Obtener servicio seleccionado
 const sqlServicio = `
     SELECT BasePrice, DurationMinutes
     FROM Services
@@ -167,6 +221,7 @@ conexion.query(sqlServicio, [serviceid], (err, servicio) => {
 
     const duration = servicio[0].DurationMinutes;
 
+    // Obtener horario laboral del empleado
     const sqlEmpleado = `
     SELECT StartTime, EndTime
     FROM Employees
@@ -175,11 +230,12 @@ conexion.query(sqlServicio, [serviceid], (err, servicio) => {
 
     const startDate = new Date(appointmentDate);
 
-const endDate = new Date(
+    const endDate = new Date(
     startDate.getTime() + duration * 60000
 );
 
-const sqlConflicto = `
+// Validar conflicto de horarios
+    const sqlConflicto = `
     SELECT ID
     FROM Appointments
     WHERE EmployeeID = ?
@@ -187,6 +243,7 @@ const sqlConflicto = `
     AND ? > AppointmentDate
 `;
 
+// Insertar cita
 const sql = `
     INSERT INTO Appointments
     (
@@ -278,7 +335,11 @@ conexion.query(
 
 });
 
-// Put Appointment
+
+// ===============================
+// ACTUALIZAR CITA
+// ===============================
+
 router.put("/:id", (req, res) => {
 
     const { id } = req.params;
@@ -337,10 +398,18 @@ router.put("/:id", (req, res) => {
 
 });
 
+
+// ===============================
+// ACTUALIZAR ESTADO DE CITA
+// Confirmed
+// Completed
+// Cancelled
+// ===============================
+
 router.put("/status/:id", (req, res) => {
 
-    const { id } = req.params;
-    const { status } = req.body;
+const { id } = req.params;
+const { status } = req.body;
 
     const sql = `
         UPDATE Appointments
@@ -368,7 +437,11 @@ router.put("/status/:id", (req, res) => {
 
 });
 
-// Delete Appointment
+
+// ===============================
+// ELIMINAR CITA
+// ===============================
+
 router.delete("/:id", (req, res) => {
 
     const { id } = req.params;

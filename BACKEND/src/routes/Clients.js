@@ -3,8 +3,10 @@ const router = express.Router();
 
 const conexion = require("../database/conexion");
 
+// ======================
+// OBTENER CLIENTES
+// ======================
 
-// Get Clients
 router.get("/", (req, res) => {
 
     const sql = `
@@ -28,7 +30,10 @@ router.get("/", (req, res) => {
 });
 
 
-// Get Client by ID
+// =============================
+// OBTENER CLIENTES POR ID
+// =============================
+
 router.get("/:id", (req, res) => {
 
     const { id } = req.params;
@@ -48,6 +53,7 @@ router.get("/:id", (req, res) => {
             });
         }
 
+        // Cliente no encontrado
         if (result.length === 0) {
             return res.status(404).json({
                 error: "Cliente no encontrado"
@@ -61,11 +67,16 @@ router.get("/:id", (req, res) => {
 });
 
 
-// Post Client
+// ======================
+// REGISTRAR CLIENTE
+// ======================
+
 router.post("/", (req, res) => {
 
     const { firstName, lastName, phone } = req.body;
 
+
+    // Validación de campos obligatorios
     if (!firstName) {
         return res.status(400).json({
             error: "El nombre es requerido"
@@ -99,6 +110,8 @@ router.post("/", (req, res) => {
 
             }
 
+            
+            // Registro exitoso
             res.status(201).json({
                 mensaje: "Cliente creado correctamente",
                 id: result.insertId,
@@ -113,12 +126,16 @@ router.post("/", (req, res) => {
 });
 
 
-// Put Client
+// ======================
+// ACTUALIZAR CLIENTE
+// ======================
+
 router.put("/:id", (req, res) => {
 
     const { id } = req.params;
     const { firstName, lastName, phone } = req.body;
 
+    // Validación de campos obligatorios
     if (!firstName) {
         return res.status(400).json({
             error: "El nombre es requerido"
@@ -152,12 +169,14 @@ router.put("/:id", (req, res) => {
 
             }
 
+            // Cliente no encontrado
             if (result.affectedRows === 0) {
                 return res.status(404).json({
                     error: "Cliente no encontrado"
                 });
             }
 
+            // Actualización exitosa
             res.json({
                 mensaje: "Cliente actualizado correctamente",
                 id,
@@ -172,7 +191,11 @@ router.put("/:id", (req, res) => {
 });
 
 
-// Delete Client
+
+// ======================
+// ELIMINAR CLIENTE
+// ======================
+
 router.delete("/:id", (req, res) => {
 
     const { id } = req.params;
@@ -192,18 +215,67 @@ router.delete("/:id", (req, res) => {
             });
         }
 
+        // Cliente no encontrado
         if (result.affectedRows === 0) {
             return res.status(404).json({
                 error: "Cliente no encontrado"
             });
         }
 
+        // Eliminación exitosa
         res.json({
             mensaje: "Cliente eliminado correctamente",
             id
         });
 
     });
+
+});
+
+
+// ======================
+// RECUPERAR CONTRASEÑA
+// ======================
+
+router.put("/forgot-password", (req, res) => {
+
+    const { phone, passwordHash } = req.body;
+
+    const sql = `
+        UPDATE Clients
+        SET PasswordHash = ?
+        WHERE Phone = ?
+    `;
+
+    conexion.query(
+        sql,
+        [passwordHash, phone],
+        (err, result) => {
+
+            if (err) {
+
+                console.log(err);
+
+                return res.status(500).json({
+                    error: "Error al actualizar contraseña"
+                });
+
+            }
+
+            if (result.affectedRows === 0) {
+
+                return res.status(404).json({
+                    error: "Cliente no encontrado"
+                });
+
+            }
+
+            res.json({
+                mensaje: "Contraseña actualizada correctamente"
+            });
+
+        }
+    );
 
 });
 

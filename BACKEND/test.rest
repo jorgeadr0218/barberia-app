@@ -61,6 +61,14 @@ GET http://localhost:3000/api/employees
 GET http://localhost:3000/api/employees/11
 
 
+### Get Employees By Service
+GET http://localhost:3000/api/employees/service/1
+
+
+### Get Employee Schedule
+GET http://localhost:3000/api/employees/schedule/1
+
+
 ### Post Employee
 POST http://localhost:3000/api/employees
 Content-Type: application/json
@@ -137,9 +145,9 @@ Content-Type: application/json
 DELETE http://localhost:3000/api/services/4
 
 
-// ====================
-// EMPLOYEESERVICE
-// ====================
+# ====================
+# EMPLOYEESERVICE
+# ====================
 
 ### Get Relations
 GET http://localhost:3000/api/EmployeeService
@@ -172,6 +180,7 @@ Content-Type: application/json
 ### Delete Relation
 DELETE http://localhost:3000/api/EmployeeService/13
 
+
 # ====================
 # Appointments
 # ====================
@@ -188,13 +197,16 @@ GET http://localhost:3000/api/appointments/client/1
 GET http://localhost:3000/api/appointments/1
 
 
+### Get Available Hours
+GET http://localhost:3000/api/appointments/available-hours/1/2026-06-17
+
+
 ### Create Appointment
 POST http://localhost:3000/api/appointments
 Content-Type: application/json
 
 {
     "appointmentDate": "2026-06-07 14:30:00",
-    "finalPrice": 25000,
     "clientid": 1,
     "employeeid": 1,
     "serviceid": 1
@@ -211,6 +223,15 @@ Content-Type: application/json
     "clientid": 1,
     "employeeid": 1,
     "serviceid": 2
+}
+
+
+### Update Appointment Status
+PUT http://localhost:3000/api/appointments/status/1
+Content-Type: application/json
+
+{
+    "status": "Cancelled"
 }
 
 

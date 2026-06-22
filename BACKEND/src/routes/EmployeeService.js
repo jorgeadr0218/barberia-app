@@ -4,7 +4,10 @@ const router = express.Router();
 const conexion = require("../database/conexion");
 
 
-// Get Relations
+// =============================================================
+// OBTENER TODAS LAS ASIGNACIONES DE EMPLEADOS A SERVICIOS
+// ============================================================
+
 router.get("/", (req, res) => {
 
     const sql = `
@@ -36,7 +39,10 @@ router.get("/", (req, res) => {
 });
 
 
-// Get Relation By ID
+// ==================================
+// OBTENER UNA ASIGNACION POR ID
+// ==================================
+
 router.get("/:id", (req, res) => {
 
     const { id } = req.params;
@@ -77,7 +83,10 @@ router.get("/:id", (req, res) => {
 });
 
 
-// Assign Service To Employee
+// ==================================0====
+// ASIGNAR UN SERVICIO A UN EMPLEADO
+// =======================================
+
 router.post("/", (req, res) => {
 
     const { employeeid, serviceid } = req.body;
@@ -127,7 +136,10 @@ router.post("/", (req, res) => {
 });
 
 
-// Update Relation
+// ==========================================
+// ACTUALIZAR UNA ASIGNACION DE SERVICIO
+// ==========================================
+
 router.put("/:id", (req, res) => {
 
     const { id } = req.params;
@@ -184,7 +196,10 @@ router.put("/:id", (req, res) => {
 });
 
 
-// Delete Relation
+// =========================================
+// ELIMINAR UNA ASIGNACION DE SERVCIIO
+// =========================================
+
 router.delete("/:id", (req, res) => {
 
     const { id } = req.params;

@@ -27,7 +27,7 @@
 
 
     <!-- =========================
-    1. TOP INFO
+    MENSAJE SUPERIOR
     ========================== -->
 
 <!-- DESDE 2020 -->
@@ -39,7 +39,7 @@
 
 
     <!-- =========================
-    2. USER BAR
+    BARRA DE LOGIN Y REGISTRO
     ========================== -->
 
 <div class="user-bar py-2">
@@ -60,7 +60,7 @@
 
 
     <!-- =========================
-    1. NAVBAR
+    MENU PRINCIPAL DE NAVEGACION
     ========================== -->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-black">
@@ -84,11 +84,11 @@
                 <a class="nav-link text-white" href="servicios.html">Servicios</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link text-white" href="mis-citas.html" id="menuMisCitas">Mis citas</a>
+            <li class="nav-item" id="menuMisCitas">
+                <a class="nav-link text-white active-page" href="mis-citas.html">Mis citas</a>
             </li>
             
-            <li class="nav-item  ms-lg-3 mt-2 mt-lg-0">
+            <li class="nav-item">
                 <a class="btn btn-outline-light" href="reservar-cita.html">Reservar cita</a>
             </li>
         </ul>
@@ -98,6 +98,9 @@
 </nav>
 
 
+<!-- =========================
+MIS CITAS
+========================== -->
 
 <section class="container py-5">
 
@@ -116,17 +119,20 @@
         <thead class="table-dark">
             <tr>
                 <th>Servicio</th>
+                <th>Precio</th>
                 <th>Empleado</th>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Estado</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
+        <!-- CONTENIDO DINÁMICO DE LAS CITAS -->
         <tbody id="appointmentsTableBody">
 
             <tr>
-                <td colspan="5" class="text-center">
+                <td colspan="6" class="text-center">
                     No hay citas registradas
                 </td>
             </tr>
@@ -142,7 +148,7 @@
 
 
     <!-- =========================
-         4. BANNER / INFO EXTRA
+    BANNER / INFO EXTRA
     ========================== -->
 
 <section class="top-bar">
@@ -163,7 +169,7 @@
 
 
     <!-- =========================
-         5. FOOTER
+    PIE DE PAGINA
     ========================== -->
 
 <section class="footer">
@@ -217,7 +223,7 @@
 
 
     <!-- =========================
-         6. COPYRIGHT
+    COPYRIGHT
     ========================== -->
 
 <div class="footer-bottom">
@@ -225,7 +231,8 @@
 </div>
 
 
-    <!-- Scripts de Bootstrap JS -->
+    <!-- SCRIPTS JAVASCRIPT -->
+     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="../js/userbar.js"></script>

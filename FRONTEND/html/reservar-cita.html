@@ -26,9 +26,9 @@
 
 <body class="reserva">
     
-    <!-- =========================
-         1. TOP INFO
-    ========================== -->
+  <!-- =========================
+  MENSAJE SUPERIOR  
+  ========================== -->
 
 <!-- DESDE 2020 -->
 <div class="desde2020 py-1">
@@ -38,9 +38,9 @@
 </div>
 
 
-    <!-- =========================
-    2. USER BAR
-    ========================== -->
+  <!-- =========================
+  BARRA DE LOGIN Y REGISTRO
+  ========================== -->
 
 <div class="user-bar py-2">
     <div class="container text-end" id="userBar">
@@ -58,9 +58,9 @@
     </div>
 </div>
 
-    <!-- =========================
-         2. NAVBAR
-    ========================== -->
+  <!-- =========================
+    MENU PRINCIPAL DE NAVEGACION
+  ========================== -->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-black">
      <div class="container">
@@ -83,12 +83,12 @@
                 <a class="nav-link text-white" href="servicios.html">Servicios</a>
             </li>
 
-             <li class="nav-item">
-                <a class="nav-link text-white" href="mis-citas.html" id="menuMisCitas">Mis citas</a>
+             <li class="nav-item" id="menuMisCitas">
+                <a class="nav-link text-white" href="mis-citas.html">Mis citas</a>
             </li>
 
-            <li class="nav-item  ms-lg-3 mt-2 mt-lg-0">
-                <a class="btn btn-outline-light" href="reservar-cita.html" id="menuReservar">Reservar cita</a>
+            <li class="nav-item">
+                <a class="btn btn-outline-light active-page" href="reservar-cita.html" id="menuReservar">Reservar cita</a>
             </li>
         </ul>
     </div>
@@ -97,9 +97,9 @@
 </nav>
 
 
-    <!-- =========================
-         3. FORMULARIO (SECCIÓN PRINCIPAL)
-    ========================== -->
+  <!-- =========================
+  FORMULARIO DE RESERVA DE CITAS
+  ========================== -->
 
 <section id="formulario">
 <div class="reserva-container text-center">
@@ -108,32 +108,42 @@
     <img src="../assets/imagenes/imagen-logo.png" class="reserva-logo">
     <h1 class="fw-bold reserva-title">BarberShop</h1>
 
-    <!-- FORMULARIO -->
+    <!-- FORMULARIO DE RESERVA -->
     <form id="appointmentForm" class="text-start mt-4">
 
-    <!-- INPUTS -->    
-
+        <!-- SECCION DE SERVICIO  -->    
         <label>Servicio</label>
         <select id="serviceid" class="form-control mb-3">
-            <option value="">Seleccionar servicio</option>
+          <option value="">Seleccionar servicio</option>
         </select>
         
+        <div
+          id="servicePrice"
+          class="alert alert-secondary mt-2 d-none">
+        </div>
+        
+        <!-- SELECCIÓN DE BARBERO -->
         <label>Barbero</label>
         <select id="employeeid" class="form-control mb-3">
-            <option value="">Seleccionar barbero</option>"
+          <option value="">Seleccionar barbero</option>
         </select>
 
+        <!-- SELECCIÓN DE FECHA -->
         <label>Fecha</label>
         <input type="date" id="date" class="form-control mb-3">
 
+        <!-- SELECCIÓN DE HORA -->
         <label>Hora</label>
-        <input type="time" id="time" class="form-control mb-4">
+        <select id="time" class="form-control mb-4">
+          <option value="">Seleccionar hora</option>
+        </select>
 
-      <!-- BOTÓN -->
+        <!-- BOTÓN PARA CONFIRMAR LA RESERVA -->
         <button type="submit" class="reserva-btn">
-            Reservar cita
+          Reservar cita
         </button>
 
+        <!-- MENSAJE DE RESPUESTA DEL SISTEMA -->
         <div id="message" class="mt-3"></div>
 
     </form>
@@ -143,10 +153,9 @@
 </section>
 
 
-
-    <!-- =========================
-         4. BANNER / INFO EXTRA
-    ========================== -->
+  <!-- =========================
+  BANNER / INFO EXTRA
+  ========================== -->
 
 <section class="top-bar">
   <div class="container-bar">
@@ -166,8 +175,8 @@
 
 
   <!-- =========================
-         5. FOOTER
-    ========================== -->
+  PIE DE PAGINA
+  ========================== -->
 
 <section class="footer">
   <div class="footer-container">
@@ -219,9 +228,9 @@
 </section>
 
 
-    <!-- =========================
-         6. COPYRIGHT
-    ========================== -->
+  <!-- =========================
+  COPYRIGHT
+  ========================== -->
 
 <div class="footer-bottom">
   © 2026 Tu Barbería - Todos los derechos reservados, Diseñado para quienes valoran el estilo
@@ -229,8 +238,8 @@
 
 
   <!-- =========================
-         SCRIPTS
-    ========================== -->
+  SCRIPTS JAVASCRIPT
+  ========================== -->
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 

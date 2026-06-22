@@ -176,6 +176,7 @@
 /* =========================
    FOOTER
 ========================= */
+
 .footer {
     background: #ffffff;
     padding: 40px 0;
@@ -371,9 +372,88 @@
     height: 45px;
 }
 
+
+/* =========================
+   BOTÓN RESERVAR CITA ACTIVO
+========================= */
+
+.btn.active-page {
+    background-color: white;
+    color: black !important;
+    border-color: white;
+}
+
+
+/* Mantener el mismo color al pasar el cursor */
+.btn.active-page:hover {
+    background-color: white;
+    color: black !important;
+    border-color: white;
+}
+
+
+/* =========================
+   MENÚ ACTIVO
+========================= */
+
+.active-page {
+    background-color: white;
+    color: black !important;
+    border-radius: 5px;
+    padding: 8px 12px;
+}
+
+
+/* =========================
+   EFECTO HOVER MENÚ
+========================= */
+
+.nav-link:hover {
+    background-color: white;
+    color: black !important;
+    border-radius: 5px;
+}
+
+
+/* =========================
+   ESPACIADO MENÚ NAVEGACIÓN
+========================= */
+
+.navbar-nav {
+    gap: 10px;
+}
+
+
+/* =========================
+   BOTÓN RESERVAR CITA MENÚ
+========================= */
+
+.navbar .btn-outline-light {
+    padding: 8px 15px;
+}
+
+
+/* ======================
+   USER BAR
+====================== */
+
+.user-bar a{
+    color: black;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.user-bar a:hover{
+    background-color: black;
+    color: white;
+}
+
+
 /* =========================
    RESPONSIVE
 ========================= */
+
 @media (max-width: 768px) {
     .container-bar,
     .footer-container {
@@ -397,3 +477,8 @@
         grid-template-columns: 1fr;
     }
 }
+
+
+
+
+

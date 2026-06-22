@@ -3,8 +3,10 @@ const router = express.Router();
 
 const conexion = require("../database/conexion");
 
+// =======================
+// OBTENER EMPLEADOS
+// =======================
 
-// Get Employees
 router.get("/", (req, res) => {
 
     const sql = `
@@ -28,6 +30,10 @@ router.get("/", (req, res) => {
 });
 
 
+// ================================================
+// OBTENER EMPLEADOS QUE REALIZAN UN SERVICIO
+// ================================================
+
 router.get("/service/:serviceid", (req, res) => {
 
     const { serviceid } = req.params;
@@ -41,6 +47,7 @@ router.get("/service/:serviceid", (req, res) => {
         INNER JOIN Employees
             ON EmployeeService.EmployeeID = Employees.ID
         WHERE EmployeeService.ServiceID = ?
+        AND Employees.IsActive = 1
     `;
 
     conexion.query(sql, [serviceid], (err, result) => {
@@ -60,7 +67,86 @@ router.get("/service/:serviceid", (req, res) => {
 });
 
 
-// Get Employee By ID
+// ==============================================
+// OBTENER HORARIO DE TRABAJO DE UN EMPLEADO
+// ==============================================
+
+router.get("/schedule/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    const sql = `
+        SELECT
+            StartTime,
+            EndTime
+        FROM Employees
+        WHERE ID = ?
+    `;
+
+    conexion.query(sql, [id], (err, result) => {
+
+        if (err) {
+            console.log(err);
+
+            return res.status(500).json({
+                error: "Error al obtener horario del empleado"
+            });
+        }
+
+        if (result.length === 0) {
+            return res.status(404).json({
+                error: "Empleado no encontrado"
+            });
+        }
+
+        res.json(result[0]);
+
+    });
+
+});
+
+
+// =====================================
+// OBTENER SERVICIOS DE UN EMPLEADO
+// =====================================
+
+router.get("/employee-services/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    const sql = `
+        SELECT
+            Services.ID,
+            Services.Name
+        FROM EmployeeService
+        INNER JOIN Services
+            ON EmployeeService.ServiceID = Services.ID
+        WHERE EmployeeService.EmployeeID = ?
+    `;
+
+    conexion.query(sql, [id], (err, result) => {
+
+        if (err) {
+
+            console.log(err);
+
+            return res.status(500).json({
+                error: "Error al obtener servicios del empleado"
+            });
+
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+
+// =============================
+// OBTENER EMPLEADO POR ID
+// =============================
+
 router.get("/:id", (req, res) => {
 
     const { id } = req.params;
@@ -93,10 +179,13 @@ router.get("/:id", (req, res) => {
 });
 
 
-// Post Employee
+// =======================
+// CREAR EMPLEADO
+// =======================
+
 router.post("/", (req, res) => {
 
-    const { firstName, lastName, phone, salary, startTime, endTime, hireDate } = req.body;
+    const { firstName, lastName, phone, salary, startTime, endTime, hireDate, services } = req.body;
 
     // Validación
     if (!firstName || !lastName || !phone || !salary || !startTime || !endTime || !hireDate) {
@@ -137,17 +226,50 @@ router.post("/", (req, res) => {
                 });
             }
 
-            res.status(201).json({
-                mensaje: "Empleado creado correctamente",
-                id: result.insertId,
-                firstName,
-                lastName,
-                phone,
-                salary,
-                startTime,
-                endTime,
-                hireDate
-            });
+            const employeeId = result.insertId;
+
+            // Si no seleccionó servicios, finalizar
+            if (!services || services.length === 0) {
+
+                return res.status(201).json({
+                   mensaje: "Empleado creado correctamente",
+                   id: employeeId
+                });
+
+            }
+
+            // Preparar los valores para EmployeeServices
+            const values = services.map(serviceId => [
+                employeeId,
+                serviceId
+            ]);
+
+            const sqlServices = `
+                INSERT INTO EmployeeService
+                (EmployeeID, ServiceID)
+                VALUES ?
+            `;
+
+            conexion.query(
+                sqlServices,
+                [values],
+                (err) => {
+
+                    if (err) {
+                        console.log(err);
+
+                        return res.status(500).json({
+                            error: "Error al guardar los servicios del empleado"
+                        });
+                    }
+
+                    return res.status(201).json({
+                        mensaje: "Empleado creado correctamente",
+                        id: employeeId
+                    });
+
+                }
+            );
 
         }
     );
@@ -155,11 +277,18 @@ router.post("/", (req, res) => {
 });
 
 
-// Put Employee
+// =======================
+// ACTUALIZAR EMPLEADO
+// =======================
+
 router.put("/:id", (req, res) => {
 
     const { id } = req.params;
-    const { firstName, lastName, phone, salary, startTime, endTime, hireDate } = req.body;
+    const { firstName, lastName, phone, salary, startTime, endTime, hireDate, services } = req.body;
+
+    console.log("Servicios recibidos:", services);
+
+    console.log(req.body);
 
     // Validación
     if (!firstName || !lastName || !phone || !salary || !startTime || !endTime || !hireDate) {
@@ -206,23 +335,76 @@ router.put("/:id", (req, res) => {
                 });
             }
 
-            res.json({
-                mensaje: "Empleado actualizado correctamente",
-                id,
-                firstName,
-                lastName,
-                phone,
-                salary,
-                startTime,
-                endTime,
-                hireDate
-            });
+            const sqlDeleteServices = `
+                DELETE FROM EmployeeService
+                WHERE EmployeeID = ?
+            `;
+
+            conexion.query(
+                sqlDeleteServices,
+                [id],
+                (err) => {
+
+                    if (err) {
+                       console.log(err);
+
+                        return res.status(500).json({
+                           error: "Error al actualizar los servicios del empleado"
+                        });
+                    }
+
+                    // Si no seleccionó servicios, terminar
+                    if (!services || services.length === 0) {
+
+                        return res.json({
+                        mensaje: "Empleado actualizado correctamente"
+                        });
+
+                    }
+
+                    const values = services.map(serviceId => [
+                        id,
+                        serviceId
+                    ]);
+
+                    const sqlInsertServices = `
+                        INSERT INTO EmployeeService
+                        (EmployeeID, ServiceID)
+                        VALUES ?
+                    `;
+
+                    conexion.query(
+                        sqlInsertServices,
+                        [values],
+                        (err) => {
+
+                            if (err) {
+                                console.log(err);
+
+                                return res.status(500).json({
+                                    error: "Error al guardar los nuevos servicios"
+                                 });
+                            }
+
+                             return res.json({
+                                mensaje: "Empleado actualizado correctamente"
+                            });
+
+                        }
+                    );
+
+                }
+            );
 
         }
     );
 
 });
 
+
+// =======================
+// DESACTIVAR EMPLEADO
+// =======================
 
 router.put("/deactivate/:id", (req, res) => {
 
@@ -251,6 +433,11 @@ router.put("/deactivate/:id", (req, res) => {
     });
 
 });
+
+
+// =======================
+// REACTIVAR EMPLEADO
+// =======================
 
 router.put("/reactivate/:id", (req, res) => {
 
@@ -283,7 +470,10 @@ router.put("/reactivate/:id", (req, res) => {
 });
 
 
-// Delete Employee
+// =======================
+// ELIMINAR EMPLEADO
+// =======================
+
 router.delete("/:id", (req, res) => {
 
     const { id } = req.params;

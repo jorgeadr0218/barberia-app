@@ -4,12 +4,15 @@ const router = express.Router();
 const conexion = require("../database/conexion");
 
 
-// Login admin
+// ===============================
+// LOGIN ADMINISTRADOR
+// ===============================
+
 router.post("/", (req, res) => {
 
     const { username, passwordHash } = req.body;
 
-    // Validación
+    // Validación de campos obligatorios
     if (!username || !passwordHash) {
         return res.status(400).json({
             error: "Todos los campos son requeridos"
@@ -36,12 +39,14 @@ router.post("/", (req, res) => {
 
             }
 
+            // Administrador no encontrado
             if (result.length === 0) {
                 return res.status(401).json({
                     error: "Credenciales incorrectas"
                 });
             }
 
+            // Login exitoso
             res.json({
                 mensaje: "Login exitoso",
                 admin: {
